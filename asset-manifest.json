@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/pilates-memory-game/static/css/main.e6c13ad2.css",
-    "main.js": "/pilates-memory-game/static/js/main.b509830e.js",
+    "main.js": "/pilates-memory-game/static/js/main.c2bbc302.js",
     "static/js/453.63165dc0.chunk.js": "/pilates-memory-game/static/js/453.63165dc0.chunk.js",
     "index.html": "/pilates-memory-game/index.html",
     "main.e6c13ad2.css.map": "/pilates-memory-game/static/css/main.e6c13ad2.css.map",
-    "main.b509830e.js.map": "/pilates-memory-game/static/js/main.b509830e.js.map",
+    "main.c2bbc302.js.map": "/pilates-memory-game/static/js/main.c2bbc302.js.map",
     "453.63165dc0.chunk.js.map": "/pilates-memory-game/static/js/453.63165dc0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.b509830e.js"
+    "static/js/main.c2bbc302.js"
   ]
 }
