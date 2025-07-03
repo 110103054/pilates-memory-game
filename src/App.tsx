@@ -1,15 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { CssBaseline, ThemeProvider, createTheme, Typography } from '@mui/material';
+import { Container, Typography, ThemeProvider, createTheme } from '@mui/material';
 import MemoryGame from './components/MemoryGame';
 
 const theme = createTheme({
   palette: {
-    mode: 'light',
     primary: {
-      main: '#2196f3',
+      main: '#1976d2',
     },
-    secondary: {
-      main: '#f50057',
+    success: {
+      main: '#4caf50',
+    },
+    error: {
+      main: '#f44336',
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          '&.Mui-disabled': {
+            opacity: 1,
+          },
+        },
+        contained: {
+          '&.Mui-disabled': {
+            backgroundColor: 'inherit',
+            color: 'inherit',
+          },
+        },
+      },
     },
   },
 });
@@ -19,19 +38,18 @@ function App() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('/movement.csv')
-      .then(response => {
+    fetch(process.env.PUBLIC_URL + '/movement.csv')
+      .then(async response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.text();
-      })
-      .then(data => {
-        console.log('CSV data loaded:', data.substring(0, 200)); // 只顯示前200個字符
-        const rows = data.split('\n');
-        // Skip the header row and get all movement names
-        const movementNames = rows.slice(1).map(row => row.trim()).filter(Boolean);
-        console.log('Parsed movements:', movementNames);
+        const text = await response.text();
+        const allRows = text.split('\n');
+        console.log('Total rows in CSV:', allRows.length);
+        const movementNames = allRows
+          .slice(1, 91) // Only take rows 2 to 91 (index 1 to 90)
+          .map(row => row.trim().replace(/\r/g, '')) // Remove carriage returns
+          .filter(row => row.length > 0 && !row.includes('\r')); // Remove empty lines and lines with carriage returns
         setMovements(movementNames);
       })
       .catch(error => {
@@ -43,10 +61,11 @@ function App() {
   if (error) {
     return (
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Typography color="error" sx={{ p: 2 }}>
-          Error loading movements: {error}
-        </Typography>
+        <Container maxWidth="md" sx={{ mt: 4 }}>
+          <Typography color="error" sx={{ p: 2 }}>
+            Failed to load movements: {error}
+          </Typography>
+        </Container>
       </ThemeProvider>
     );
   }
@@ -54,18 +73,20 @@ function App() {
   if (movements.length === 0) {
     return (
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Typography sx={{ p: 2 }}>
-          Loading movements...
-        </Typography>
+        <Container maxWidth="md" sx={{ mt: 4 }}>
+          <Typography sx={{ p: 2 }}>
+            Loading movements...
+          </Typography>
+        </Container>
       </ThemeProvider>
     );
   }
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <MemoryGame movements={movements} />
+      <Container maxWidth="md" sx={{ mt: 4 }}>
+        <MemoryGame movements={movements} />
+      </Container>
     </ThemeProvider>
   );
 }

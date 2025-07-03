@@ -4,12 +4,41 @@ export interface Movement {
   name: string;
 }
 
+export interface BaseOption {
+  isSelected?: boolean;
+  isCorrect?: boolean;
+}
+
+export interface TextOption extends BaseOption {
+  type: 'text';
+  text: string;
+}
+
+export interface ImageOption extends BaseOption {
+  type: 'image';
+  image: string;
+}
+
+export type GameOption = TextOption | ImageOption;
+
 export interface GameState {
-  currentMovement: Movement | null;
-  options: string[];
+  currentQuestion: number;
+  totalQuestions: number;
   score: number;
   timeLeft: number;
   isGameOver: boolean;
-  totalQuestions: number;
-  currentQuestion: number;
+  currentMovement: Movement;
+  options: GameOption[];
+  gameMode: 'name-to-image' | 'image-to-name';
+  questionOrder: Movement[];
+}
+
+export interface LeaderboardEntry {
+  score: number;
+  time: number;
+  date: string;
+}
+
+export interface Leaderboard {
+  entries: LeaderboardEntry[];
 } 

@@ -1,0 +1,30 @@
+.button {
+  height: 60px;
+  font-size: 1.1rem;
+  text-transform: none;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.buttonCorrect {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+
+.buttonIncorrect {
+  background-color: #f44336 !important;
+  color: white !important;
+}
+
+.buttonDefault {
+  background-color: #1976d2 !important;
+  color: white !important;
+}
+
+.buttonDisabled {
+  opacity: 1 !important;
+} 
